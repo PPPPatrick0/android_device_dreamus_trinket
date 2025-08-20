@@ -1,0 +1,34 @@
+# mount_point    fs_type    device                                      flags
+
+# Boot partitions (A/B) - UFS devices use "boot" as fs_type for raw images
+/boot            boot       /dev/block/by-name/boot                     flags=slotselect
+/recovery        boot       /dev/block/by-name/recovery                 flags=slotselect
+
+# VBMeta partitions for verification (A/B)
+/vbmeta          boot       /dev/block/by-name/vbmeta                   flags=slotselect;display="VBMeta"
+/vbmeta_system   boot       /dev/block/by-name/vbmeta_system            flags=slotselect;display="VBMeta System"
+
+# Super partition (physical block device for dynamic partitions)
+super            raw        /dev/block/by-name/super
+
+# Dynamic Partitions (mounted via device-mapper)
+/system          ext4       /dev/block/mapper/system                    flags=ro;logical
+/vendor          ext4       /dev/block/mapper/vendor                    flags=ro;logical
+/product         ext4       /dev/block/mapper/product                   flags=ro;logical
+
+# Data and Storage
+/data            ext4       /dev/block/by-name/userdata                 flags=fileencryption=ice;length=-16384
+/persist         ext4       /dev/block/by-name/persist                  flags=display="Persist"
+/keystore        ext4       /dev/block/by-name/keystore
+
+# External Storage (SD Card) - This is a common path, adjust if needed
+/external_sd     auto       /dev/block/mmcblk1p1                        flags=display="MicroSD Card";storage;wipeingui;removable
+
+# Firmware partitions (A/B)
+/modem           boot       /dev/block/by-name/modem                    flags=slotselect;backup=1;display="Modem"
+/bluetooth       boot       /dev/block/by-name/bluetooth                flags=slotselect;backup=1;display="Bluetooth"
+/dsp             boot       /dev/block/by-name/dsp                      flags=slotselect;backup=1;display="DSP"
+
+# Other essential partitions
+/misc            emmc       /dev/block/by-name/misc
+/frp             emmc       /dev/block/by-name/frp                      flags=display="FRP"
