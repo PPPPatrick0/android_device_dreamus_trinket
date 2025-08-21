@@ -1,0 +1,26 @@
+# mount_point    fs_type    device                                      flags
+
+# For raw partitions, "emmc" is the most compatible fs_type in this TWRP version
+/boot            emmc       /dev/block/by-name/boot                     flags=slotselect
+/recovery        emmc       /dev/block/by-name/recovery                 flags=slotselect
+/vbmeta          emmc       /dev/block/by-name/vbmeta                   flags=slotselect;display="VBMeta"
+/vbmeta_system   emmc       /dev/block/by-name/vbmeta_system            flags=slotselect;display="VBMeta System"
+/modem           emmc       /dev/block/by-name/modem                    flags=slotselect;backup=1;display="Modem"
+/bluetooth       emmc       /dev/block/by-name/bluetooth                flags=slotselect;backup=1;display="Bluetooth"
+/dsp             emmc       /dev/block/by-name/dsp                      flags=slotselect;backup=1;display="DSP"
+/misc            emmc       /dev/block/by-name/misc
+/frp             emmc       /dev/block/by-name/frp                      flags=display="FRP"
+/super           emmc       /dev/block/by-name/super                    flags=display="Super"
+
+# Dynamic Partitions - REMOVED 'ro' FLAG!
+/system          ext4       /dev/block/mapper/system                    flags=logical
+/vendor          ext4       /dev/block/mapper/vendor                    flags=logical
+/product         ext4       /dev/block/mapper/product                   flags=logical
+
+# Data and Storage
+/data            f2fs       /dev/block/by-name/userdata                 flags=fileencryption=ice;length=-16384
+/persist         ext4       /dev/block/by-name/persist                  flags=display="Persist"
+/keystore        ext4       /dev/block/by-name/keystore
+
+# External Storage
+/external_sd     auto       /dev/block/mmcblk1p1                        flags=display="MicroSD Card";storage;wipeingui;removable
